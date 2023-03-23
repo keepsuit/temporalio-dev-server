@@ -1,4 +1,5 @@
-FROM temporalio/admin-tools as temporal-admin-tools
+ARG TEMPORAL_VERSION=latest
+FROM temporalio/admin-tools:${TEMPORAL_VERSION} as temporal-admin-tools
 
 FROM alpine:3.17
 EXPOSE 7233 8233
