@@ -1,44 +1,64 @@
 name: build
 
 on:
-  push:
-    branches:
-      - main
-  schedule:
-    - cron: "0 0 * * 0"
-  workflow_dispatch:
+    push:
+        branches:
+            - main
+    schedule:
+        - cron: "0 0 * * 0"
+    workflow_dispatch:
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
+    build:
+        runs-on: ubuntu-latest
+        timeout-minutes: 10
 
-    strategy:
-      fail-fast: false
-      matrix:
-        version: [ '1.20', '1.21', '1.22', '1.23', '1', 'latest' ]
+        strategy:
+            fail-fast: false
+            matrix:
+                include:
+                    - tag: 1.20
+                      version: 1.20
+                    - tag: 1.21
+                      version: 1.21
+                    - tag: 1.22
+                      version: 1.22
+                    - tag: 1.23
+                      version: 1.23.1.1-tctl-1.18.1-cli-0.12.0
+                    - tag: 1.24
+                      version: 1.24.2-tctl-1.18.1-cli-1.0.0
+                    - tag: 1.25
+                      version: 1.25
+                    - tag: 1.26
+                      version: 1.26
+                    - tag: 1.27
+                      version: 1.27
+                    - tag: 1
+                      version: 1.27
+                    - tag: latest
+                      version: latest
 
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
 
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
+            - name: Set up QEMU
+              uses: docker/setup-qemu-action@v3
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+            - name: Set up Docker Buildx
+              uses: docker/setup-buildx-action@v3
 
-      - name: Login to Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+            - name: Login to Docker Hub
+              uses: docker/login-action@v3
+              with:
+                  username: ${{ secrets.DOCKERHUB_USERNAME }}
+                  password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build and push
-        uses: docker/build-push-action@v6
-        with:
-          context: .
-          platforms: linux/amd64,linux/arm64
-          push: true
-          build-args: TEMPORAL_VERSION=${{ matrix.version }}
-          tags: keepsuit/temporalio-dev-server:${{ matrix.version }}
+            - name: Build and push
+              uses: docker/build-push-action@v6
+              with:
+                  context: .
+                  platforms: linux/amd64,linux/arm64
+                  push: true
+                  build-args: TEMPORAL_VERSION=${{ matrix.version }}
+                  tags: keepsuit/temporalio-dev-server:${{ matrix.tag }}
