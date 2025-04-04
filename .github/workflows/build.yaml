@@ -17,26 +17,26 @@ jobs:
             fail-fast: false
             matrix:
                 include:
-                    - tag: 1.20
-                      version: 1.20
-                    - tag: 1.21
-                      version: 1.21
-                    - tag: 1.22
-                      version: 1.22
-                    - tag: 1.23
-                      version: 1.23.1.1-tctl-1.18.1-cli-0.12.0
-                    - tag: 1.24
-                      version: 1.24.2-tctl-1.18.1-cli-1.0.0
-                    - tag: 1.25
-                      version: 1.25
-                    - tag: 1.26
-                      version: 1.26
-                    - tag: 1.27
-                      version: 1.27
-                    - tag: 1
-                      version: 1.27
-                    - tag: latest
-                      version: latest
+                    - tag: '1.20'
+                      version: '1.20'
+                    - tag: '1.21'
+                      version: '1.21'
+                    - tag: '1.22'
+                      version: '1.22'
+                    - tag: '1.23'
+                      version: '1.23.1.1-tctl-1.18.1-cli-0.12.0'
+                    - tag: '1.24'
+                      version: '1.24.2-tctl-1.18.1-cli-1.0.0'
+                    - tag: '1.25'
+                      version: '1.25'
+                    - tag: '1.26'
+                      version: '1.26'
+                    - tag: '1.27'
+                      version: '1.27'
+                    - tag: '1'
+                      version: '1.27'
+                    - tag: 'latest'
+                      version: 'latest'
 
         steps:
             - name: Checkout
