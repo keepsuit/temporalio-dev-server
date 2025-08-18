@@ -33,8 +33,10 @@ jobs:
                       version: '1.26'
                     - tag: '1.27'
                       version: '1.27'
+                    - tag: '1.28'
+                      version: '1.28'
                     - tag: '1'
-                      version: '1.27'
+                      version: '1.28'
                     - tag: 'latest'
                       version: 'latest'
 
